@@ -1,0 +1,93 @@
+QFrame#frameHeader{background-color:#21CA63;}
+QLabel[whatsThis="titleLabel"]{color:white;}
+QToolButton{
+   min-width:80px;
+   min-height:32px;
+}
+QToolButton{
+color:rgb(255, 255, 255);
+min-height:20;
+border-style:solid;
+border-top-left-radius:0px;
+border-top-right-radius:0px;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(34,203,100),
+                            stop: 0.3 rgb(34,203,100),
+                              stop: 1 rgb(34,203,100));
+border:1px;
+border-radius:0px;
+padding:2px 4px;
+}
+QToolButton:hover{
+color:rgb(255, 255, 255);
+min-height:20;
+border-style:solid;
+border-top-left-radius:2px;
+border-top-right-radius:2px;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(34,203,100),
+                            stop: 0.3 rgb(32,193,95),
+                              stop: 1 rgb(32,191,94));
+border:1px;
+border-radius:0px;
+padding:2px 4px;
+}
+QToolButton:pressed{
+color:rgb(255, 255, 255);
+min-height:20;
+border-style:solid;
+border-top-left-radius:0px;
+border-top-right-radius:0px;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(32,191,94),
+                            stop: 0.3 rgb(32,191,94),
+                              stop: 1 rgb(32,191,94));
+border:1px;
+border-radius:0px;
+padding:2px 4px;
+}
+QToolButton:checked{
+color:rgb(255, 255, 255);
+min-height:20;
+border-style:solid;
+border-top-left-radius:2px;
+border-top-right-radius:2px;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(34,203,100),
+                            stop: 0.3 rgb(32,193,95),
+                              stop: 1 rgb(32,191,94));
+border:1px;
+border-radius:0px;
+padding:2px 4px;
+}
+QLabel#labelGen{
+color:white;
+border-radius:35px;
+background-color:#1ADA6F;
+}
+QLabel#labelGen:hover{
+color:white;
+border-radius:35px;
+background-color:#22E783;
+}
+QLabel#labelGen:pressed{
+color:white;
+border-radius:35px;
+background-color:#1DCF6B;
+}
+QLabel#mainMinimunLabel{
+background-color:transparent;
+}
+QLabel#mainMinimunLabel:hover{
+background-color:#56DB98;
+}
+QLabel#mainMinimunLabel:pressed{
+background-color:#0CB761;
+}
+
+QLabel#mainCloseLabel{
+background-color:transparent;
+}
+QLabel#mainCloseLabel:hover{
+background-color:#E7534A;
+}
+QLabel#mainCloseLabel:pressed{
+background-color:#C33F37;
+}
+

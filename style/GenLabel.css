@@ -1,0 +1,15 @@
+QLabel#testLabel{
+color:white;
+border-radius:20px;
+background-color:#1ADA6F;
+}
+QLabel#testLabel:hover{
+color:white;
+border-radius:20px;
+background-color:#22E783;
+}
+QLabel#testLabel:press{
+color:white;
+border-radius:20px;
+background-color:#1DCF6B;
+}

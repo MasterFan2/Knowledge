@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>res/app.ico</file>
+        <file>res/exit.png</file>
+        <file>res/Frame.jpg</file>
+        <file>res/login.png</file>
+        <file>res/open.png</file>
+        <file>res/close.png</file>
+        <file>res/about.png</file>
+        <file>res/add.png</file>
+        <file>res/config.png</file>
+        <file>res/gen.png</file>
+        <file>res/minimun.png</file>
+        <file>res/1484816114_Know.ico</file>
+        <file>res/lock.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>style/MainWindow.css</file>
+        <file>style/Main.css</file>
+        <file>style/GenLabel.css</file>
+    </qresource>
+</RCC>
