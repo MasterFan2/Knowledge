@@ -1,4 +1,4 @@
-QToolButton{
+QToolButton[whatsThis='mainToolButton']{
     color:rgb(255, 255, 255);
     min-height:20;
     border-style:solid;
@@ -11,7 +11,7 @@ QToolButton{
     border-radius:5px;
     padding:2px 4px;/*border-radius控制圆角大小*/
 }
-QToolButton:hover{  /*鼠标放上后*/
+QToolButton[whatsThis='mainToolButton']:hover{  /*鼠标放上后*/
     color:rgb(255, 255, 255);
     min-height:20;
     border-style:solid;
@@ -24,7 +24,7 @@ QToolButton:hover{  /*鼠标放上后*/
     border-radius:5px;
     padding:2px 4px;
 }
-QToolButton:pressed{ /*按下按钮后*/
+QToolButton[whatsThis='mainToolButton']:pressed{ /*按下按钮后*/
     color:rgb(255, 255, 255);
     min-height:20;
     border-style:solid;
@@ -36,7 +36,7 @@ QToolButton:pressed{ /*按下按钮后*/
     border:1px;
     border-radius:5px;padding:2px 4px;
 }
-QToolButton:checked{    /*选中后*/
+QToolButton[whatsThis='mainToolButton']:checked{    /*选中后*/
     color:rgb(255, 255, 255);
     min-height:20;
     border-style:solid;

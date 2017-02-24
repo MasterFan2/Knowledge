@@ -10,6 +10,7 @@
 #include <QtMath>
 #include <QPixmap>
 
+#include "DialogGeneratePro.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -136,7 +137,10 @@ int MainWindow::onCloseClicked()
  */
 int MainWindow::onGenLabelClicked()
 {
-    qDebug() << "生成按钮点击";
+    DialogGeneratePro dialogGeneratePro(this);
+
+    dialogGeneratePro.exec();
+    qDebug() << "生成弹窗" ;
     return 0;
 }
 

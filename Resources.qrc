@@ -13,6 +13,12 @@
         <file>res/minimun.png</file>
         <file>res/1484816114_Know.ico</file>
         <file>res/lock.png</file>
+        <file>res/icon_1.png</file>
+        <file>res/icon_2.png</file>
+        <file>res/icon_3.png</file>
+        <file>res/icon_4.png</file>
+        <file>res/icon_success.png</file>
+        <file>res/icon_default.png</file>
     </qresource>
     <qresource prefix="/styles">
         <file>style/MainWindow.css</file>

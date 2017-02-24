@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,15 +16,27 @@ SOURCES += main.cpp\
         src/MainWindow.cpp \
     src/HeaderForm.cpp \
     src/CssUtils.cpp \
-    src/MFLabel.cpp
+    src/MFLabel.cpp \
+    src/DialogGeneratePro.cpp \
+    src/DialogWidgetLists.cpp \
+    src/bean/WidgetBean.cpp \
+    src/item/ItemWidgetListForm.cpp
 
 HEADERS  += src/MainWindow.h \
     src/HeaderForm.h \
     src/CssUtils.h \
-    src/MFLabel.h
+    src/MFLabel.h \
+    src/DialogGeneratePro.h \
+    src/DialogWidgetLists.h \
+    src/bean/WidgetBean.h \
+    src/item/ItemWidgetListForm.h
 
 FORMS    += src/MainWindow.ui \
-    src/HeaderForm.ui
+    src/HeaderForm.ui \
+    src/DialogGeneratePro.ui \
+    src/DialogWidgetLists.ui \
+    src/ItemWidgetList.ui \
+    src/item/ItemWidgetListForm.ui
 
 RESOURCES += \
     Resources.qrc \

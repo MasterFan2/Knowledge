@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>DialogGeneratePro</class>
  <widget class="QDialog" name="DialogGeneratePro">
@@ -5,63 +6,590 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>320</height>
+    <width>546</width>
+    <height>476</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Create New Project</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>270</y>
-     <width>221</width>
-     <height>41</height>
+     <x>0</x>
+     <y>420</y>
+     <width>551</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+  </widget>
+  <widget class="QPushButton" name="nextBtn">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>440</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>下一步</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="doneBtn">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>440</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>完成</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="previousBtn">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>440</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>上一步</string>
+   </property>
+  </widget>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>531</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>2</number>
+   </property>
+   <widget class="QWidget" name="page_0">
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>10</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>MyKnowledge</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>70</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>例如：com.example.demo</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>140</y>
+       <width>301</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>可提前配置</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>项目名称</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>包    名</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>140</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>保存路径</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>50</y>
+       <width>371</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>110</y>
+       <width>371</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="doneBtn_2">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>130</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_1">
+    <widget class="QComboBox" name="step2MinimunComboBox">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>341</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Minimum SDK</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>140</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Wear</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>180</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TV</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>140</y>
+       <width>341</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>API 20:Android 4.4 (KitKat Wear)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 21:Android 5.0 (Lollipop)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 22:Android 5.1 (Lollipop)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 23:Android 6.0 (Marshmallow)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 24:Android 7.1.1 (Nougat)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="comboBox_5">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>180</y>
+       <width>341</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>API 20:Android 4.4 (KitKat Wear)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 21:Android 5.0 (Lollipop)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 22:Android 5.1 (Lollipop)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 23:Android 6.0 (Marshmallow)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>API 24:Android 7.1.1 (Nougat)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Coming soon</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>100</y>
+       <width>341</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <widget class="QListWidget" name="step3ListWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>441</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="movement">
+      <enum>QListView::Snap</enum>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step3ChooseBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>0</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择组件</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step3addBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>40</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>add</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step3delBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>70</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>del</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step3updateBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>100</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>update</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step3queryBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>130</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>query</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3">
+    <widget class="QListWidget" name="step4ListWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>441</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="movement">
+      <enum>QListView::Snap</enum>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="step4ChooseBtn">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>0</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择工具</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QToolButton" name="toolButtonBase">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>91</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>基础设置</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../Resources.qrc">
+     <normaloff>:/images/res/icon_1.png</normaloff>:/images/res/icon_1.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButtonChooseVersion">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>10</y>
+     <width>91</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>版本选择</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../Resources.qrc">
+     <normaloff>:/images/res/icon_2.png</normaloff>:/images/res/icon_2.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButtonChooseWidget">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>10</y>
+     <width>91</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>选择组件</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../Resources.qrc">
+     <normaloff>:/images/res/icon_3.png</normaloff>:/images/res/icon_3.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButtonChooseTools">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>91</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>选择工具</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../Resources.qrc">
+     <normaloff>:/images/res/icon_4.png</normaloff>:/images/res/icon_4.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>48</width>
+     <height>48</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+  </widget>
+  <action name="actionHello">
+   <property name="text">
+    <string>Hello</string>
+   </property>
+  </action>
+  <action name="actionHi">
+   <property name="text">
+    <string>Hi</string>
+   </property>
+  </action>
  </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>DialogGeneratePro</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>DialogGeneratePro</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources>
+  <include location="../Resources.qrc"/>
+ </resources>
+ <connections/>
 </ui>

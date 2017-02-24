@@ -5,6 +5,9 @@
 #include <QLabel>
 #include <QMouseEvent>
 
+/**
+ * @brief 有点击事件的Label
+ */
 class MFLabel : public QLabel
 {
     Q_OBJECT

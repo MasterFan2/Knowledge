@@ -51,7 +51,7 @@
       </rect>
      </property>
      <property name="whatsThis">
-      <string>toolButton</string>
+      <string>mainToolButton</string>
      </property>
      <property name="text">
       <string>生成项目</string>
@@ -86,7 +86,7 @@
       </rect>
      </property>
      <property name="whatsThis">
-      <string>toolButton</string>
+      <string>mainToolButton</string>
      </property>
      <property name="text">
       <string>配置环境</string>
@@ -118,7 +118,7 @@
       </rect>
      </property>
      <property name="whatsThis">
-      <string>toolButton</string>
+      <string>mainToolButton</string>
      </property>
      <property name="text">
       <string>添加控件</string>
@@ -150,7 +150,7 @@
       </rect>
      </property>
      <property name="whatsThis">
-      <string>toolButton</string>
+      <string>mainToolButton</string>
      </property>
      <property name="text">
       <string>关于我们</string>
