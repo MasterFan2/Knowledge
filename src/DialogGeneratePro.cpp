@@ -1,3 +1,15 @@
+/***********************************************************
+ * 生成项目选择流程的主窗口
+ * 目前所有选择项保存在内存中， 选择完成后能过读取保存的信息开始生成项目
+ * [后期考虑把选择的配置放到一个配置文件中]
+ *
+ * create by MasterFan
+ *      on 2017年2月25日10:29:31
+ *
+ *
+ *
+ ***********************************************************/
+
 #include "DialogGeneratePro.h"
 #include "ui_DialogGeneratePro.h"
 #include <QListWidgetItem>
@@ -11,7 +23,10 @@
 
 #include <QDir>
 
+//temp
+#include <QMovie>
 
+//constructor
 DialogGeneratePro::DialogGeneratePro(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogGeneratePro)
@@ -29,7 +44,12 @@ DialogGeneratePro::DialogGeneratePro(QWidget *parent) :
     initialzie();//初始化数据
 
     dialogWidgetLists = new DialogWidgetLists(this);
-    connect(dialogWidgetLists, SIGNAL(onChooseData(QList<WidgetBean*>)), this, SLOT(receiveChooseList(QList<WidgetBean*>)));
+    dialogToolList    = new DialogToolsList(this);
+
+    QMovie *wait = new QMovie(":/images/res/processing.gif");
+    ui->labelWaitting->setMovie(wait);
+    wait->start();
+
 
     //添加点击事件
     connect(ui->previousBtn, SIGNAL(clicked()), this, SLOT(onPreviousClicked()));
@@ -42,12 +62,50 @@ DialogGeneratePro::DialogGeneratePro(QWidget *parent) :
     connect(ui->step3updateBtn, SIGNAL(clicked()), this, SLOT(sqliteUpdate()));
     connect(ui->step3queryBtn,  SIGNAL(clicked()), this, SLOT(sqliteQuery()));
 
-    //选择widgets
+    //选择widgets 和 tools
     connect(ui->step3ChooseBtn, SIGNAL(clicked()), this, SLOT(chooseWidgetsByLists()));
+    connect(ui->step4ChooseBtn, SIGNAL(clicked()), this, SLOT(chooseToolsByList()));
 
+    //处理选择widgets和tools回调
+    connect(dialogWidgetLists, SIGNAL(onChooseData(QList<WidgetBean*>)), this, SLOT(receiveChooseList(QList<WidgetBean*>)));
+    connect(dialogToolList,    SIGNAL(onChooseData(QList<WidgetBean*>)), this, SLOT(receiveChooseTools(QList<WidgetBean*>)));
 
+    //步骤点击按钮跳转对应的界面
+    connect(ui->toolButtonBase,          SIGNAL(clicked()), this, SLOT(step1()));
+    connect(ui->toolButtonChooseVersion, SIGNAL(clicked()), this, SLOT(step2()));
+    connect(ui->toolButtonChooseWidget,  SIGNAL(clicked()), this, SLOT(step3()));
+    connect(ui->toolButtonChooseTools,   SIGNAL(clicked()), this, SLOT(step4()));
 }
 
+//选择工具
+void DialogGeneratePro::chooseToolsByList()
+{
+    dialogToolList->exec();
+}
+
+//接收返回tools
+void DialogGeneratePro::receiveChooseTools(QList<WidgetBean*> dataList)
+{
+    //===============显示第四步选择的列表=============
+    ui->step4ListWidget->clear();
+    int size = dataList.size();
+    for(int i = 0; i < size; i ++)
+    {
+        QListWidgetItem *configButton = new QListWidgetItem(ui->step4ListWidget);
+        configButton->setIcon(QIcon(dataList.at(i)->path()));
+        configButton->setText(dataList.at(i)->name());
+        configButton->setTextAlignment(Qt::AlignHCenter);
+        configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
+
+        //ui->listWidget->setCurrentItem(configButton);
+    }
+    ui->step4ListWidget->setFlow(QListView::LeftToRight);
+    ui->step4ListWidget->setResizeMode(QListView::Adjust);
+    ui->step4ListWidget->update();
+    qDebug() << "receiveChooseList:::dataSize=" << dataList.size();
+}
+
+//添加到数据库中
 void DialogGeneratePro::sqliteAdd()
 {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
@@ -135,6 +193,8 @@ void DialogGeneratePro::sqliteAdd()
     }
 }
 
+
+//从数据库中删除
 void DialogGeneratePro::sqliteDel()
 {
     QDir *temp = new QDir;
@@ -206,7 +266,7 @@ void DialogGeneratePro::sqliteQuery()
     }
 }
 
-//接收返回数据
+//接收返回数据[组件]
 void DialogGeneratePro::receiveChooseList(QList<WidgetBean*> dataList)
 {
     //===============显示第三步选择的列表=============
@@ -228,6 +288,7 @@ void DialogGeneratePro::receiveChooseList(QList<WidgetBean*> dataList)
     qDebug() << "receiveChooseList:::dataSize=" << dataList.size();
 }
 
+//更新数据库
 void DialogGeneratePro::sqliteUpdate()
 {
 
@@ -242,33 +303,17 @@ void DialogGeneratePro::initialzie()
     completeHash[2]=ui->toolButtonChooseWidget;
     completeHash[3]=ui->toolButtonChooseTools;
 
-    //添加comboxBox的数据
+    //添加comboxBox的数据 [版本选择]
     QStringList strList;
     strList << "API 9:Android 2.3 (Gingerbread)" << "API 10:Android 2.3.3 (Gingerbread)" << "API 11:Android 3.0 (Honeycomb)";
     ui->step2MinimunComboBox->addItems(strList);
-
-
-    //===============显示第四步选择的列表=============
-    ui->step4ListWidget->setResizeMode(QListView::Adjust);
-    for(int i=0; i<15; i++)
-    {
-        QListWidgetItem *configButton = new QListWidgetItem(ui->step4ListWidget);
-        configButton->setIcon(QIcon(":/images/res/gen.png"));
-        configButton->setText(tr("Master Fan"));
-        configButton->setTextAlignment(Qt::AlignHCenter);
-        configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-
-
-        //ui->listWidget->setCurrentItem(configButton);
-    }
-    ui->step4ListWidget->setFlow(QListView::LeftToRight);
-    ui->step4ListWidget->update();
 }
 
 //改变已完成按钮的显示状态
 void DialogGeneratePro::changeButtonState(int completeIndex, int oldIndex)
 {
     completeHash[completeIndex]->setIcon(QIcon(":/images/res/icon_success.png"));
+    completeHash[completeIndex + 1]->setChecked(true);
 }
 
  // 禁用控件
@@ -323,6 +368,39 @@ bool DialogGeneratePro::checkVariableComplete(int index)
 {
 
     return true;
+}
+
+//顶部的步骤按钮点击slots
+void DialogGeneratePro::step1()//第一步
+{
+    currentIndex = 0;
+    ui->previousBtn->setEnabled(false);
+    ui->nextBtn->setEnabled(true);
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void DialogGeneratePro::step2()
+{
+    currentIndex = 1;
+    ui->previousBtn->setEnabled(true);
+    ui->nextBtn->setEnabled(true);
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void DialogGeneratePro::step3()
+{
+    currentIndex = 2;
+    ui->previousBtn->setEnabled(true);
+    ui->nextBtn->setEnabled(true);
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void DialogGeneratePro::step4()
+{
+    currentIndex = 3;
+    ui->previousBtn->setEnabled(true);
+    ui->nextBtn->setEnabled(false);
+    ui->stackedWidget->setCurrentIndex(3);
 }
 
 //destroy

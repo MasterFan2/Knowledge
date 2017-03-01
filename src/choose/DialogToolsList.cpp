@@ -1,28 +1,12 @@
-/***********************************************************
- * 选择组件的列表展示窗口
- *
- *
- *
- * create by MasterFan
- *      on 2017年2月23日
- *
- *
- *
- ***********************************************************/
+#include "DialogToolsList.h"
+#include "ui_DialogToolsList.h"
+#include "../item/ItemWidgetListForm.h"
 
-#include "DialogWidgetLists.h"
-#include "ui_DialogWidgetLists.h"
-#include <QList>
-
-#include <QListWidgetItem>
-#include "item/ItemWidgetListForm.h"
-
-DialogWidgetLists::DialogWidgetLists(QWidget *parent) :
+DialogToolsList::DialogToolsList(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DialogWidgetLists)
+    ui(new Ui::DialogToolsList)
 {
     ui->setupUi(this);
-
     //关闭窗口上的问号按钮
     this->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
@@ -33,12 +17,12 @@ DialogWidgetLists::DialogWidgetLists(QWidget *parent) :
 }
 
 //查询数据库
-void DialogWidgetLists::queryWidgetListByDatabase()
+void DialogToolsList::queryWidgetListByDatabase()
 {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("knowledge.db");
     QSqlQuery query;
-    QString select_all_sql = "select * from widget where type=0";
+    QString select_all_sql = "select * from widget where type=1";
 
     if (database.open())
     {
@@ -107,7 +91,7 @@ void DialogWidgetLists::queryWidgetListByDatabase()
 }
 
 //点击完成按钮, 过滤选择的项， 把数据返回
-void DialogWidgetLists::onDoneClick()
+void DialogToolsList::onDoneClick()
 {
     QList<WidgetBean*> checkedList;
     int size = ui->listWidget->count();
@@ -135,7 +119,7 @@ void DialogWidgetLists::onDoneClick()
     }
 }
 
-DialogWidgetLists::~DialogWidgetLists()
+DialogToolsList::~DialogToolsList()
 {
     delete ui;
 }

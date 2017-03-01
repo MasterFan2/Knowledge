@@ -440,6 +440,22 @@
       <string>query</string>
      </property>
     </widget>
+    <widget class="QLabel" name="labelWaitting">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>40</y>
+       <width>200</width>
+       <height>200</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="page_3">
     <widget class="QListWidget" name="step4ListWidget">
