@@ -40,10 +40,10 @@ public:
     bool hasLibSo;          //是否有so库，true:写入jniLibs.srcDirs=['libs'] 或是创建jniLib目录
 
     //step3 组件选择
-    QList<WidgetToolBean> widgetList;
+    QList<WidgetToolBean*> widgetList;
 
     //step 4工具类选择
-    QList<WidgetToolBean> toolList;
+    QList<WidgetToolBean*> toolList;
 };
 
 #endif // CONFBEAN_H

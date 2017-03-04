@@ -26,13 +26,28 @@
 #ifndef KERNELGENERATEPROJECT_H
 #define KERNELGENERATEPROJECT_H
 
+#include "../bean/ConfBean.h"
 
-class KernelGenerateProject
+class AndroidKernel
 {
 public:
-    KernelGenerateProject();
+    AndroidKernel();
 
-    static int generateStructure();        //生成目录结构
+    /**
+     * 生成目录结构
+     * 1.${workspace}/${ProjectName}
+     * 2.${workspace}/${ProjectName}/app/src/main
+     * 3.${workspace}/${ProjectName}/app/src/main/res
+     * 4.${workspace}/${ProjectName}/app/src/main/java
+     * 5.${workspace}/${ProjectName}/app/src/main/java/${packageName}
+     * 6.${workspace}/${ProjectName}/app/src/main/java/${packageName}/bean、ui、widget、utils ...
+     * 7.${workspace}/${ProjectName}/app/src/main/res/layout、mipmap-h、x、xx、xxx、m、values、drawable、anim
+     * @brief generateStructure
+     * @return
+     */
+    static int generateStructure(ConfBean*);
+
+
     static int copyFilesToDestination();   //copy不变的文件到对应目录,如 png、drawable、layout、anim、libs、so、java
     static int writeColorsToXml();         //写入所有颜色到values-->colors.xml中
     static int writeDimensToXml();         //写入dimens.xml

@@ -22,6 +22,7 @@
         <file>res/icon_tools_default.png</file>
         <file>res/processing.gif</file>
         <file>res/abc.gif</file>
+        <file>res/progress.gif</file>
     </qresource>
     <qresource prefix="/styles">
         <file>style/MainWindow.css</file>

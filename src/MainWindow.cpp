@@ -23,6 +23,7 @@
 #include <QPixmap>
 
 #include "DialogGeneratePro.h"
+#include "initialize/DialogInitialize.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
     initSystemTrayIcon();//初始化托盘图标
 
     connectAction();//连接信号， 槽
+
+    DialogInitialize * initDialog = new DialogInitialize();
+    initDialog->exec();
 }
 
 /**

@@ -22,6 +22,7 @@
 #include <QtSql/QSqlQuery>
 
 #include <QDir>
+#include <QColor>
 
 //temp
 #include <QMovie>
@@ -39,9 +40,16 @@ DialogGeneratePro::DialogGeneratePro(QWidget *parent) :
     this->setWindowFlags(flags);
 
     ui->stackedWidget->setCurrentIndex(0);//设置默认显示卡页
-    checkWidget();//禁用button
+    disableWidget();//禁用button
 
     initialzie();//初始化数据
+
+    conf = new ConfBean();
+
+    //设置提示文字红色
+    QPalette pa;
+    pa.setColor(QPalette::WindowText, QColor(254, 123, 122));
+    ui->labelWarnning->setPalette(pa);
 
     dialogWidgetLists = new DialogWidgetLists(this);
     dialogToolList    = new DialogToolsList(this);
@@ -61,6 +69,9 @@ DialogGeneratePro::DialogGeneratePro(QWidget *parent) :
     connect(ui->step3delBtn,    SIGNAL(clicked()), this, SLOT(sqliteDel()));
     connect(ui->step3updateBtn, SIGNAL(clicked()), this, SLOT(sqliteUpdate()));
     connect(ui->step3queryBtn,  SIGNAL(clicked()), this, SLOT(sqliteQuery()));
+
+    //step1  选择workspace
+    connect(ui->chooseWorkspaceBtn,  SIGNAL(clicked()), this, SLOT(chooseWorkspace()));
 
     //选择widgets 和 tools
     connect(ui->step3ChooseBtn, SIGNAL(clicked()), this, SLOT(chooseWidgetsByLists()));
@@ -84,7 +95,7 @@ void DialogGeneratePro::chooseToolsByList()
 }
 
 //接收返回tools
-void DialogGeneratePro::receiveChooseTools(QList<WidgetBean*> dataList)
+void DialogGeneratePro::receiveChooseTools(QList<WidgetToolBean*> dataList)
 {
     //===============显示第四步选择的列表=============
     ui->step4ListWidget->clear();
@@ -92,8 +103,8 @@ void DialogGeneratePro::receiveChooseTools(QList<WidgetBean*> dataList)
     for(int i = 0; i < size; i ++)
     {
         QListWidgetItem *configButton = new QListWidgetItem(ui->step4ListWidget);
-        configButton->setIcon(QIcon(dataList.at(i)->path()));
-        configButton->setText(dataList.at(i)->name());
+        configButton->setIcon(QIcon(dataList.at(i)->previewpath));
+        configButton->setText(dataList.at(i)->name);
         configButton->setTextAlignment(Qt::AlignHCenter);
         configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 
@@ -102,7 +113,9 @@ void DialogGeneratePro::receiveChooseTools(QList<WidgetBean*> dataList)
     ui->step4ListWidget->setFlow(QListView::LeftToRight);
     ui->step4ListWidget->setResizeMode(QListView::Adjust);
     ui->step4ListWidget->update();
-    qDebug() << "receiveChooseList:::dataSize=" << dataList.size();
+
+//    qDebug() << "receiveChooseList:::dataSize=" << dataList.size();
+    conf->toolList = dataList;
 }
 
 //添加到数据库中
@@ -210,7 +223,8 @@ void DialogGeneratePro::sqliteDel()
         if(temp->mkdir("./masterfan"))
         {
             qDebug()<< "dir created";
-        }else
+        }
+        else
         {
             qDebug()<< "dir create error.";
         }
@@ -267,7 +281,7 @@ void DialogGeneratePro::sqliteQuery()
 }
 
 //接收返回数据[组件]
-void DialogGeneratePro::receiveChooseList(QList<WidgetBean*> dataList)
+void DialogGeneratePro::receiveChooseList(QList<WidgetToolBean*> dataList)
 {
     //===============显示第三步选择的列表=============
     ui->step3ListWidget->clear();
@@ -275,8 +289,8 @@ void DialogGeneratePro::receiveChooseList(QList<WidgetBean*> dataList)
     for(int i = 0; i < size; i ++)
     {
         QListWidgetItem *configButton = new QListWidgetItem(ui->step3ListWidget);
-        configButton->setIcon(QIcon(dataList.at(i)->path()));
-        configButton->setText(dataList.at(i)->name());
+        configButton->setIcon(QIcon(dataList.at(i)->previewpath));
+        configButton->setText(dataList.at(i)->name);
         configButton->setTextAlignment(Qt::AlignHCenter);
         configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
 
@@ -286,6 +300,8 @@ void DialogGeneratePro::receiveChooseList(QList<WidgetBean*> dataList)
     ui->step3ListWidget->setResizeMode(QListView::Adjust);
     ui->step3ListWidget->update();
     qDebug() << "receiveChooseList:::dataSize=" << dataList.size();
+
+    conf->widgetList = dataList;
 }
 
 //更新数据库
@@ -307,6 +323,14 @@ void DialogGeneratePro::initialzie()
     QStringList strList;
     strList << "API 9:Android 2.3 (Gingerbread)" << "API 10:Android 2.3.3 (Gingerbread)" << "API 11:Android 3.0 (Honeycomb)";
     ui->step2MinimunComboBox->addItems(strList);
+
+    QStringList sdkList;
+    sdkList << "API 9:Android 2.3 (Gingerbread)" << "API 10:Android 2.3.3 (Gingerbread)" << "API 11:Android 3.0 (Honeycomb)";
+    ui->step2targetCBox->addItems(sdkList);
+
+    QStringList gradleList;
+    gradleList << "2.1.2" << "2.2.2"  << "2.3.0alpha";
+    ui->step2GradleCBox->addItems(gradleList);
 }
 
 //改变已完成按钮的显示状态
@@ -317,7 +341,7 @@ void DialogGeneratePro::changeButtonState(int completeIndex, int oldIndex)
 }
 
  // 禁用控件
-void DialogGeneratePro::checkWidget()
+void DialogGeneratePro::disableWidget()
 {
     ui->previousBtn->setEnabled(false);
     ui->doneBtn->setEnabled(false);
@@ -340,9 +364,62 @@ void DialogGeneratePro::onPreviousClicked()
      }
 }
 
+//检查当前步骤是否选择完整
+int DialogGeneratePro::checkCurrentStep(int currentIndex)
+{
+    conf->applicationName = ui->lineEditAppName->text();
+    conf->packageName     = ui->lineEditPkgName->text();
+
+    if (currentIndex == 0)
+    {
+        if (conf->applicationName.isEmpty()) return 1;//BaseChoose::NotSetProjectName;
+        if (conf->packageName.isEmpty())     return 2;//BaseChoose::NotSetPackageName;
+        if (conf->workspace.isEmpty())       return 3;//BaseChoose::NotSetWorkspace;
+                                             return 0;//BaseChoose::Done;
+    }
+    else if(currentIndex == 1)
+    {
+        return 0;//BaseChoose::Done;
+    }
+    else return 0;//BaseChoose::Done;
+}
+
 //下一步
 void DialogGeneratePro::onNextClicked()
 {
+    if (currentIndex == 0 ) {
+        int chooseResult = checkCurrentStep(0);
+        if (chooseResult != 0) {
+            if (chooseResult == 1)
+            {
+                ui->labelWarnning->setText("请输入项目名称");
+                return;
+            }
+
+            if (chooseResult == 2)
+            {
+                ui->labelWarnning->setText("请输入包名称");
+                return;
+            }
+
+            if (chooseResult == 3)
+            {
+                ui->labelWarnning->setText("请选择保存路径");
+                return;
+            }
+        }
+        ui->labelWarnning->setText("");
+    }
+    else if(currentIndex == 1) //选择一些版本
+    {
+        conf->minimunVersion    = 11;
+        conf->targetVersion     = "24";
+        conf->compileSdkVersion = 24;
+        conf->toolsBuild        = "2.2.2";
+        conf->hasLibSo          = false;
+        conf->buildToolsVersion = "" + conf->targetVersion + ".0.0";
+    }
+
     if (currentIndex < 3)//第一次
     {
         currentIndex ++;
@@ -401,6 +478,31 @@ void DialogGeneratePro::step4()
     ui->previousBtn->setEnabled(true);
     ui->nextBtn->setEnabled(false);
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+/***********************
+ * @desc 选择工作空间目录【step 1】
+ *
+ *
+ * @auther masterFan
+ * @date 2017年3月2日
+ * @return
+ **********************/
+void DialogGeneratePro::chooseWorkspace()
+{
+    QString workspacePath = QFileDialog::getExistingDirectory(this,"请选择模板保存路径...","/");
+    if(!workspacePath.isEmpty())
+    {
+//        qDebug() << "Dir:" << workspacePath + "/";
+        conf->workspace = workspacePath + "/";
+        ui->labelPath->setText(conf->workspace);
+    }
+    else
+    {
+        qDebug() << "Not choose workspace.";
+    }
+//    QString fileName = QFileDialog::getOp(this, tr("选择文件"), "/", tr("All Files (*);;Text Files(*.txt)"), &selectedFilter, options);
+
 }
 
 //destroy
