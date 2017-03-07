@@ -22,8 +22,10 @@
 #include <QtMath>
 #include <QPixmap>
 
+#include <QThread>
+
 #include "DialogGeneratePro.h"
-#include "initialize/DialogInitialize.h"
+#include "utils/InitThread.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,10 +38,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initSystemTrayIcon();//初始化托盘图标
 
-    connectAction();//连接信号， 槽
+    InitThread *init = new InitThread();
+    connect(init, SIGNAL(done()), this, SLOT(initDone()));
+    init->start();
 
-    DialogInitialize * initDialog = new DialogInitialize();
+    initDialog = new DialogInitialize();
     initDialog->exec();
+
+    connectAction();//连接信号， 槽
 }
 
 /**
@@ -122,7 +128,11 @@ int MainWindow::connectAction()
     connect(minimunLabel, SIGNAL(clicked()), this, SLOT(onMinimunClicked()));
     connect(closeLabel,   SIGNAL(clicked()), this, SLOT(onCloseClicked()));
 
+    //创建项目按钮
     connect(createLabel, SIGNAL(clicked()), this, SLOT(onGenLabelClicked()));
+
+    //初始化
+//    connect(init, SIGNAL(done()), this, SLOT(initDone()));
 
     return 0;
 }
@@ -361,6 +371,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
     event->ignore();
+}
+
+/**
+ * @brief 初始化完成
+ */
+void MainWindow::initDone()
+{
+    qDebug() << "initDone";
+    initDialog->reject();
 }
 
 /**

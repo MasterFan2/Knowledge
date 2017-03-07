@@ -16,8 +16,12 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QMouseEvent>
+#include <QTimer>
+
 #include "CssUtils.h"
 #include "MFLabel.h"
+
+#include "initialize/DialogInitialize.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +40,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QSystemTrayIcon trayIcon;//托盘
+
+    DialogInitialize *initDialog;
+    QTimer *timer;
 
     bool dragging;//窗口移动
     QPoint startPosition;
@@ -97,6 +104,8 @@ private slots:
 
     //-------生成按钮-----------
     int onGenLabelClicked();
+
+    void initDone();//初始化完成
 
 //----------end slots--------
 

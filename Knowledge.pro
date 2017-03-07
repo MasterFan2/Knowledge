@@ -27,7 +27,10 @@ SOURCES += main.cpp\
     src/bean/WidgetToolBean.cpp \
     src/bean/FileBean.cpp \
     src/utils/AndroidKernel.cpp \
-    src/initialize/DialogInitialize.cpp
+    src/initialize/DialogInitialize.cpp \
+    src/utils/Initialize.cpp \
+    src/utils/InitThread.cpp \
+    src/utils/DBUtil.cpp
 
 HEADERS  += src/MainWindow.h \
     src/HeaderForm.h \
@@ -43,7 +46,10 @@ HEADERS  += src/MainWindow.h \
     src/bean/WidgetToolBean.h \
     src/bean/FileBean.h \
     src/utils/AndroidKernel.h \
-    src/initialize/DialogInitialize.h
+    src/initialize/DialogInitialize.h \
+    src/utils/Initialize.h \
+    src/utils/InitThread.h \
+    src/utils/DBUtil.h
 
 FORMS    += src/MainWindow.ui \
     src/HeaderForm.ui \

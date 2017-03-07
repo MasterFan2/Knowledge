@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QMovie>
 
+#include "../utils/DBUtil.h"
+
 namespace Ui {
 class DialogInitialize;
 }
@@ -18,6 +20,8 @@ public:
 
 private:
     Ui::DialogInitialize *ui;
+    DBUtil* dbUtil;
+
 };
 
 #endif // DIALOGINITIALIZE_H

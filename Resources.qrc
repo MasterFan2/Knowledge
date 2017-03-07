@@ -29,4 +29,11 @@
         <file>style/Main.css</file>
         <file>style/GenLabel.css</file>
     </qresource>
+    <qresource prefix="/conf">
+        <file>res/success.sql</file>
+        <file>res/create_table_project_file.sql</file>
+        <file>res/create_table_projectdir.sql</file>
+        <file>res/create_table_sdk.sql</file>
+        <file>res/create_table_widget.sql</file>
+    </qresource>
 </RCC>
