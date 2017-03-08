@@ -17,7 +17,7 @@ public:
     DBUtil();
 
 public:
-    int createDb();
+    int createDbAndTables(); //创建数据库和相应的表
     QVariant query();
     int insert();
     int update();

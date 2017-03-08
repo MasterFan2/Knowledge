@@ -56,7 +56,7 @@ private:
     MFLabel *minimunLabel;//最小化
     MFLabel *closeLabel;  //最大化
 
-//-----------end variable--------
+//==========end variable=========
 
 
 //------------function-----------
@@ -74,13 +74,12 @@ private:
 
     int checkByLastPosition(int position);
 
-    int connectAction();//连接信号， 槽
+    int connectAction();    //连接信号， 槽
+    int initialize();       //初始化
+    void addMFLabel();      //添加几个可点击的label标签【最小化， 关闭， 生成项目】
+    void checkLocalInitialize();//检测本地是否初始化
 
-    int initialize();//初始化
-
-    void addMFLabel();//添加几个可点击的label标签【最小化， 关闭， 生成项目】
-
-//------------function-----------
+//==========function==========
 
 
 //------------slots-----------

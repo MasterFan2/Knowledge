@@ -31,24 +31,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
 
     initialize();//初始化
 
     initSystemTrayIcon();//初始化托盘图标
 
-    InitThread *init = new InitThread();
-    connect(init, SIGNAL(done()), this, SLOT(initDone()));
-    init->start();
-
-    initDialog = new DialogInitialize();
-    initDialog->exec();
-
     connectAction();//连接信号， 槽
+
+    checkLocalInitialize();
 }
 
 /**
+ *
  * @brief 初始化
  * @return
  */
@@ -73,6 +68,31 @@ int MainWindow::initialize()
     this->setStyleSheet(cssLoader.loadCss(":/styles/style/Main.css"));
 
     return 0;
+}
+
+/**
+ * @brief 检测本地是否初始化
+ * 1，检查数据库的完整性
+ * 2，检查文件夹结构完整性
+ */
+void MainWindow::checkLocalInitialize()
+{
+    QFile file("./conf/success.cmd");
+
+    if (!file.exists()) {
+
+        qDebug()<< "MainWindow:: L:84 ==> 初始化";
+        InitThread *init = new InitThread();
+        connect(init, SIGNAL(done()), this, SLOT(initDone()));
+        init->start();
+
+        initDialog = new DialogInitialize();
+        initDialog->exec();
+    }
+    else
+    {
+        qDebug()<< "MainWindow:: L:94 ==> 已经初始化过了";
+    }
 }
 
 /**
@@ -130,9 +150,6 @@ int MainWindow::connectAction()
 
     //创建项目按钮
     connect(createLabel, SIGNAL(clicked()), this, SLOT(onGenLabelClicked()));
-
-    //初始化
-//    connect(init, SIGNAL(done()), this, SLOT(initDone()));
 
     return 0;
 }

@@ -5,7 +5,7 @@ DBUtil::DBUtil()
 
 }
 
-//加载数据库脚本文件
+//加载文件
 QString DBUtil::loadSql(QString fileName)
 {
     QFile file(fileName);
@@ -20,11 +20,12 @@ QString DBUtil::loadSql(QString fileName)
     return str;
 }
 
-//创建数据库
-int DBUtil::createDb()
+//创建数据库和相应的表
+int DBUtil::createDbAndTables()
 {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("knowledge.db");
+
 
     if (database.open())
     {
